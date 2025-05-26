@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "base.css" %}">
+    {% block styles %}{% endblock styles %}    
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                {% comment %} schované menu {% endcomment %}
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                <div class="hidden">
+                    <li><a href="{% url "main-page" %}">Moje recepty</a></li>
+                    <li><a href="{% url "add-meal-page" %}">Přidat recept</a></li>
+                    <li><a href="{% url "select-food-page" %}">Filtrovat recepty</a></li>
+                    <li><a href="{% url "profile-page" %}">Můj profil</a>
+                        {% if pending_friend_requests %} {% comment %} počet žádostí o přátelství {% endcomment %}
+                        <span>{{ pending_friend_requests }}</span>
+                        {% endif %}
+                    </li>
+                    <li><form action="{% url "logout-page" %}" method="POST">{% csrf_token %}<button>Odhlásit se</button></form></li>
+                </div>
+                {% comment %} HAMBURGER - LEVÁ STRANA NAVIGACE{% endcomment %}
+                <label for="menu-toggle" class="hamburger"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="4" width="24" height="3" fill="#E1D9D1"/><rect y="11" width="24" height="3" fill="#E1D9D1"/><rect y="18" width="24" height="3" fill="#E1D9D1"/></svg></label>
+
+                {% comment %} HAMBURGER - LEVÁ STRANA NAVIGACE {% endcomment %}
+            </div>
+            {% comment %} STŘED NAVIGACE {% endcomment %}
+            <div class="nav-center">
+                <a href="{% url "main-page" %}"><img src="{% static "images/dishly-cut.png" %}" alt=""></a>
+            </div>
+            {% comment %} PRAVÁ STRANA NAVIGACE {% endcomment %}
+            <form action="{% url "search-friends-page" %}" class="nav-right" method="POST">
+                {% csrf_token %}
+                <input type="text" name="search" placeholder="vyhledat uživatele" required>
+                <button class="lupa"><img src="{% static "images/lupa-white.png" %}" alt=""></button>
+                <a href="{% url "search-friends-page" %}" class="mobil-lupa"><img src="{% static "images/lupa-white.png" %}" alt=""></a>
+            </form>
+
+        </nav>
+    </header>
+    {% block content %}{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Vyhledávání | Connext{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/search-friends.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="space-between"> {% comment %} udělat mezeru od hoorní lišty {% endcomment %}
+        <main>
+            <form action="" method="POST" class="search-form">
+                {% csrf_token %}
+                <input type="text" name="search" placeholder="vyhledat uživatele">
+                <button><img src="{% static "images/lupa-white.png" %}" alt=""></button>
+            </form>
+            <section>
+
+                {% for one_user in matching_users_result %}
+                    <div class="one-person">
+                        <h2>{{ one_user.first_name }} {{ one_user.last_name }}</h2>
+                        
+                        {% if one_user.username in picture_dic %}
+                        {% for one_picture in profile_picture %}
+                        {% if one_user.username == one_picture.username %}
+                        <a href="{% url "profile-detail-page" one_user.username %}"><img src="{{ one_picture.image.url }}" alt=""></a>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <a href="{% url "profile-detail-page" one_user.username %}"><img class="default" src="{% static "images/empty-picture.png" %}" alt=""></a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+{% endblock content %}

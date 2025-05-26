@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hledat podle ingrediencí | Connext{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/select-food.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <main>
+        <form class="select-ingredients" action="" method="POST">
+            {% csrf_token %}
+            <button class="delete" name="delete-ingredients" onclick="return confirm('Opravdu chceš ODEBRAT tyto ingredience ze seznamu?')">Odebrat ingredienci</button>
+            <h2>{{ select_ingredients.ingredients_selection.label }}:</h2>
+            <p>(Zobrazí se recepty, které obsahují všechny vybrané ingredience)</p>
+            <div class="grid">
+                <div>
+                    <p>{{ select_ingredients.ingredients_selection|lower }}</p>
+                </div>
+            </div>
+            <button class="search" name="select-ingredients">Vyhledat recepty</button>
+        </form> 
+
+    </main>
+{% endblock content %}

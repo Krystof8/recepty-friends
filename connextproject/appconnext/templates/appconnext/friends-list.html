@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Přátelé | Connext{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/friends-list.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <main>
+        <section>
+            {% for one_friend in friends_list %}
+                <div class="one-person">
+                    <h2>{{ one_friend.first_name }} {{ one_friend.last_name }}</h2>
+                    
+                    {% if one_friend.username in picture_dic %}
+                    {% for one_picture in profile_picture %}
+                    {% if one_friend.username == one_picture.username %}
+                    <a href="{% url "profile-detail-page" one_friend.username %}"><img src="{{ one_picture.image.url }}" alt=""></a>
+                    {% endif %}
+
+                    {% endfor %}
+                    {% else %}
+                    <a href="{% url "profile-detail-page" one_friend.username %}"><img class="default" src="{% static "images/empty-picture.png" %}" alt=""></a>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock content %}

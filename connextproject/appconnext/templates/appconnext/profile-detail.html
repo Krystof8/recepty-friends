@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ one_user.first_name }} {{ one_user.last_name }} | Connext{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/profile-detail.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="space-between"> {% comment %} udělat mezeru od horní lišty {% endcomment %}
+        <section class="profile-info">
+            <div class="profile">
+                {% if profile_picture %}
+                    <img class="set-picture" src="{{ profile_picture.image.url }}" alt="">
+                {% else %}
+                    <img class="default" src="{% static "images/empty-picture.png" %}" alt="">
+                {% endif %}
+                <h1>{{ one_user.first_name }} {{ one_user.last_name }}</h1>
+                <h2>@{{ one_user.username }}</h2>
+
+                {% comment %} pokud zadost nebyla odeslana dat moznost pozadat o pratelstvi, v opacnem pripade "zadost byla odeslana" {% endcomment %}
+                {% for one_friend in friends %}
+                {% if one_friend.request_sender == 'qetuoadgjlycbm' %} {% comment %} poslat žádost o přátelství {% endcomment %}
+                <form class="add-friend" action="" method="POST" name="send-request">
+                    {% csrf_token %}
+                    <button name="send-request" onclick="return confirm('Opravdu si přejete přidat uživatele do přátel?')">Přidat do přátel</button>
+                </form> 
+
+
+
+                {% elif one_friend.profile == request.user.username %} {% comment %} už jste přátelé {% endcomment %}
+                {% comment %} <h1 class="already-friend">Jste přátelé</h1> {% endcomment %}
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <button name="remove-friend" class="remove-from-friends" onclick="return confirm('Opravdu chcete uživatele odebrat z přátel')">Odebrat z přátel</button>
+                </form>
+
+                {% comment %} uživatel už mi poslal zadost o pratelstvi {% endcomment %}
+                {% elif one_friend.request_sender == one_user.username %}
+                    <form action="" method="POST" class="friend-request">
+                        {% csrf_token %}
+                        <p>Uživatel vám odeslal žádost o přátelství:</p>
+                        <button class="accept-button" name="accept-friend">Přijmout</button>
+                        <button class="decline-button" name="decline-friend">Odmítnout</button>           
+                    </form> 
+
+                {% else %} {% comment %} žádost odeslána {% endcomment %}
+                <form class="remove-request" action="" method="POST">
+                    {% csrf_token %}
+                    <button name="remove-request" onclick="return confirm('Zrušit žádost o přátelství?')">Zrušit žádost o přátelství</button>
+                </form>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="profile-stats">
+                {% comment %} rozklimnutelne "pratele" podle toho jestli nejací jsou {% endcomment %}
+                {% if friends_count %}
+                <h2><a href="{% url "friends-list-page" one_user.username %}">Přátelé:</a> {{ friends_count }}</h2>
+                {% else %}
+                <div class="row"><h2 class="bold-text">Přátelé: </h2><h2>0</h2></div>
+                {% endif %}
+
+                {% comment %} rozklimnutelne "recepty" podle toho jestli nějaké jsou {% endcomment %}
+                {% if recept_count %}
+                <h2><a href="{% url "friend-food-list-page" one_user.username %}">Recepty:</a> {{ recept_count }}</h2>
+                {% else %}
+                <div class="row"><h2 class="bold-text">Recepty: </h2><h2>žádné</h2></div>
+                {% endif %}
+            </div> 
+        </section>
+    </div>
+{% endblock content %}

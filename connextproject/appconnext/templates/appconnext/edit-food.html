@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Editace receptu{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/edit-food.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <main>
+        <h1>Uprav recept</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.title }}</p>
+            <p>{{ form.ingredients }}</p>
+            <p class="procedure">{{ form.description }}</p>
+            <p>{{ form.image.label }}{{ form.image }}</p>
+            <button>Uložit změny</button>
+        </form>
+    </main>
+{% endblock content %}

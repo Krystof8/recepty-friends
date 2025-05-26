@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profil{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/profile.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="space-between">
+        <div class="requests">
+            {% for one_request in friends_requests %}
+            {% if one_request.request_sender == 'qetuoadgjlycbm' %}
+            <p class="new-requests-label">Žádné nové žádosti o přátelství</h1>
+
+            {% else %}
+            {% if forloop.first %} {% comment %} při prvním cyklu něco vypsat, další cykly už ne {% endcomment %}
+            <h1 class="new-requests-label">Máte nové žádosti o přátelství:</h1>
+            {% endif %}{% comment %} při prvním cyklu něco vypsat, další cykly už ne {% endcomment %}
+            <div class="name-and-buttons">
+                <div>
+                    <p><a href="{% url "profile-detail-page" one_request.username %}">{{ one_request.first_name }} {{ one_request.last_name }}</a></p>
+                </div>
+                <div>
+                    {% comment %} přijmutí nebo odmítnutí žádosti o přátelství {% endcomment %}
+                    <form action="" method="POST" class="decline-request">
+                        {% csrf_token %}
+                        <input type="hidden" name="decline-friend-username" value="{{ one_request.username }}">
+                        <button class="accept-button" name="accept-friend">Přijmout</button>
+                        <button class="decline-button" name="decline-friend">Odmítnout</button>           
+                    </form> 
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <section class="profile-info">
+        <div class="profile">
+            {% if profile_picture %}
+                {% for picture in profile_picture %}
+                    <img class="set-picture" src="{{ picture.image.url }}" alt="">
+                {% endfor %}
+            {% else %}
+                <img class="set-picture" src="{% static "images/empty-picture.png" %}" alt="">
+            {% endif %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>{{ form.image }}</p>
+                <button name="update-picture" onclick="return confirm('Opravdu si přejete změnit profilový obrázek?')">Změnit profilový obrázek</button>
+            </form>
+
+            <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+            <h2>@{{ request.user.username }}</h2>
+        </div>
+
+        <div class="profile-stats">
+            {% comment %} pokud mam pratele, dej mi počet. Pokud ne, dej tam 0 {% endcomment %}
+            {% if friends_count %}
+            <h2><a href="{% url "friends-list-page" request.user.username %}">Přátelé:</a>  {{ friends_count }}</h2>
+            {% else %}
+            <div class="row"><h2 class="bold-text">Přátelé: </h2><h2>0</h2></div>
+            {% endif %}
+
+
+            {% if recept_count %}
+            <h2><a href="{% url "main-page" %}">Recepty:</a> {{ recept_count }}</h2>
+            {% else %}
+            <div class="row"><h2 class="bold-text">Recepty: </h2><h2>žádné</h2></div>
+            {% endif %}
+        </div>
+    </section>
+
+
+
+{% endblock content %}

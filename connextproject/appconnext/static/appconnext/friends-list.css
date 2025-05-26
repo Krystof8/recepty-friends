@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Faculty+Glyphic&family=Gravitas+One&family=Inconsolata:wght@200..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Special+Gothic+Expanded+One&display=swap');
+
+main {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 100px 0 10px 0;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-family: "Nunito", sans-serif;
+}
+
+.one-person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.185);
+    padding: 30px;
+}
+
+.one-person h2 {
+    color: rgb(238, 236, 236);
+}
+
+.one-person img {
+    width: 300px; 
+    height: 350px;   
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 780px) {
+
+
+    .one-person {
+        padding: 20px;
+    }
+
+    .one-person h2 {
+        font-size: 20px;
+    }
+
+    .one-person img {
+        width: 200px; 
+        height: 230px
+    }
+
+}

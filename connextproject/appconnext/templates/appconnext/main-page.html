@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hlavní strana{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/main-page.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <main>
+        {% for one_food in all_food %}
+        <section>
+            <a href="{% url "detail-food-page" one_food.id %}" class="detail">
+                <h1 class="nadpis">{{ one_food.title|capfirst }}</h1>
+                {% if one_food.image %}
+                    <img src="{{ one_food.image.url }}" alt="">
+                {% endif %}
+            </a>
+                <div class="edits">
+                    <a href="{% url "edit-page" one_food.id %}" onclick="return confirm('Opravdu chceš UPRAVIT tento recept?')">Upravit recept</a>
+                    <a href="{% url "delete-page" one_food.id %}" onclick="return confirm('Opravdu chceš SMAZAT tento recept?')">Smazat recept</a>
+                </div>
+        </section>
+        {% endfor %}
+    </main>
+{% endblock content %}

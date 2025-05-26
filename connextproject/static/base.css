@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Faculty+Glyphic&family=Gravitas+One&family=Inconsolata:wght@200..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Special+Gothic+Expanded+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    position: relative;
+    background: url('image/background.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    background-position: center;
+}
+
+body::before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: -1; 
+} 
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; 
+  background-color: rgba(221, 220, 219, 0.26); 
+  z-index: 1000; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Nunito", sans-serif;
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  flex: 1; 
+  display: flex;
+  margin: 15px;
+}
+
+.nav-left {
+  justify-content: flex-start;
+}
+
+.nav-center {
+  justify-content: center;
+}
+
+.nav-center img {
+  width: 80px;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.nav-right input {
+  font-family: "Nunito", sans-serif;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 4px rgb(255, 145, 0);
+  width: 220px;
+  background: rgba(172, 170, 170, 0.281);
+  color: white;
+}
+
+.nav-right input::placeholder {
+  font-family: "Nunito", sans-serif;
+  font-style: italic;
+  color: rgb(221, 221, 221);
+}
+
+.nav-right img {
+  width: 40px;
+}
+
+.nav-right button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.nav-right .mobil-lupa {
+  display: none;
+}
+
+
+/* NASTAVENÍ HAMBURGERU */
+.hidden {
+  flex-direction: column;
+  display: none;
+  list-style: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 74px 0;
+  background: rgba(199, 199, 199, 0.87);
+  border-radius: 0 0 10px 10px;
+}
+
+.hidden li {
+  margin: 15px;
+  font-family: "Nunito", sans-serif;
+  padding: 0 5px 0 20px;
+  font-size: 17px;
+}
+
+.hidden li a {
+  text-decoration: none;
+  color: black;
+}
+
+.hidden li a:hover {
+  border-bottom: 1px solid black;
+}
+
+/* počet žádosti o pratelstvi */
+.hidden li span {
+  color: white;
+  background: red;
+  border-radius: 50%;
+  padding: 1px 7px;
+}
+
+.hidden li button {
+  border: none;
+  font-family: "Nunito", sans-serif;
+  background: transparent;
+  font-size: 17px;
+  cursor: pointer;
+  color: rgb(151, 15, 15);
+}
+
+.hidden li button:hover {
+  border-bottom: 1px solid rgb(151, 15, 15);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.hamburger {
+  cursor: pointer;
+}
+
+.menu-toggle:checked + .hidden {
+  display: block;
+}
+
+.search-friends {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  /* nechat zmizet lupu a input na mobilu */
+  .nav-right input, .lupa {
+    display: none;
+  }
+
+  /* nechat objevit lupu kdyz jsem na mobilu abych mohl hledat uzviatele */
+  .nav-right .mobil-lupa {
+    display: flex;
+  }
+
+  .nav-left .menu {
+    display: none;
+  }
+
+  .hidden {
+    margin-top: 69px;
+  }
+
+  .search-friends {
+    display: block;
+  }
+
+}
+
+
+
+

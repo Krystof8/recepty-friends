@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrace | Connext</title>
+    <link rel="stylesheet" href="{% static "appconnext/register.css" %}">
+</head>
+<body>
+    <header>
+        <img src="{% static "images/dishly-white.png" %}" alt="">
+    </header>
+    <main>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h1>Vytvořit nový účet</h1>
+            {{ form.first_name }}
+            {{ form.last_name }}
+            {{ form.username }}
+            {{ form.email }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+            <button>Zaregistrovat se</button>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <h3>{{ message }}</h3>
+                {% endfor %}
+            {% endif %}
+            
+            <p>Už máte účet? <a href="{% url "login-page" %}">Přihlásit se</a></p>
+        </form>
+    </main>
+</body>
+</html>

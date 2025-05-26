@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ food.title }}{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "appconnext/detail-food.css" %}">
+{% endblock styles %}
+
+{% block content %}
+    <main>
+        <h1>{{ food.title }}</h1>
+        {% if food.image %}
+            <img src="{{ food.image.url }}" alt="">
+        {% endif %}
+        <h2>Ingredience:</h2>
+        <ul>
+            {% for line in food.ingredients.splitlines %}
+                <li>{{ line|lower }}</li>
+            {% endfor %}
+        </ul>
+        {% if food.description %}
+            <h2>Postup:</h2>
+            <ol class="procedure">
+            {% for one_line in food.description.splitlines %}
+                {% if one_line.strip %}  {# Tohle vynechá prázdné nebo whitespace-only řádky #}
+                    <li>{{ one_line }}</li>
+                {% endif %}
+            {% endfor %}
+            </ol>
+        {% endif %}
+        <div class="pages">
+            <a href="{% url "edit-page" food.id %}" class="editing">Upravit recept</a>
+            <a href="{% url "delete-page" food.id %}" onclick="return confirm('Opravdu chceš SMAZAT tento recept?')" class="deleting">Smazat recept</a>
+        </div>
+    </main>
+{% endblock content %}

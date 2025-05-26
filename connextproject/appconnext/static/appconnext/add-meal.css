@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Faculty+Glyphic&family=Gravitas+One&family=Inconsolata:wght@200..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Special+Gothic+Expanded+One&display=swap');
+
+/* font-family: "Nunito", sans-serif; */
+
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px 0;
+}
+
+main h1 {
+    color: white;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+}
+
+main form {
+    font-family: "Nunito", sans-serif;
+}
+
+main form input {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+    width: 250px;
+}
+
+main form textarea {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    border: none;
+    padding: 8px;
+    margin-top: 5px;
+    width: 250px;
+    height: 250px;
+}
+
+main form p {
+    color: white;
+}
+
+main form .procedure textarea {
+    width: 600px;
+}
+
+@media (max-width: 700px) {
+    main form .procedure textarea {
+        width: 95%;
+    }
+}
+
+main form button {
+    color: white;
+    background: rgba(255, 166, 0, 0.445);
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px 15px;
+    margin-top: 10px;
+}

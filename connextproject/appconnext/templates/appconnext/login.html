@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Úvodní strana | Connext</title>
+    <link rel="stylesheet" href="{% static "appconnext/login.css" %}">
+</head>
+<body>
+    <main>
+        <div class="logo">
+            <img src="{% static "images/dishly-white.png" %}" alt="">
+            <h1>Spojte se s přáteli a sdílejte<br> své recepty!</h1>
+        </div>
+        <div class="login">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <p>{{ form.username }}</p>
+                <p>{{ form.password }}</p>
+                <button>Přihlásit se</button>
+            </form>
+            
+            <hr>
+
+            <p>Ještě nemáte účet? <a href="{% url "register-page" %}">Zaregistrujte se</a></p>
+        </div>
+    </main>
+</body>
+</html>
