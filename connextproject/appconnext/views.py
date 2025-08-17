@@ -15,10 +15,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             edit_form = form.save(commit=False)
-            edit_form.first_name = edit_form.first_name.title()
-            edit_form.last_name = edit_form.last_name.title()
-            edit_form.email = edit_form.email.lower()
-            edit_form.username = edit_form.username.lower()
+            edit_form.first_name = edit_form.first_name.title().strip()
+            edit_form.last_name = edit_form.last_name.title().strip()
+            edit_form.email = edit_form.email.lower().strip()
+            edit_form.username = edit_form.username.lower().strip()
             edit_form.save()
             return HttpResponseRedirect('/')
         else:
@@ -244,7 +244,9 @@ def friends_list(request, slug):
 
 
 
-
+# SAMOTNÉ RECEPTY*****************************************************************************************************************************************************
+# SAMOTNÉ RECEPTY*****************************************************************************************************************************************************
+# SAMOTNÉ RECEPTY*****************************************************************************************************************************************************
 # obsah stranky
 @login_required
 def main_page(request):
@@ -261,6 +263,7 @@ def add_meal(request):
         if form.is_valid():
             food = form.save(commit=False)
             food.user_id = request.user.id
+            food.title = form.cleaned_data['title'].capitalize()
             food.save()
             parts = food.ingredients.split('\r\n') #VYTVORENI INGREDIENCE DO VYHLEDAVACE
             for one_part in parts:
@@ -287,6 +290,7 @@ def edit(request, id):
         if form.is_valid():
             food = form.save(commit=False)
             food.user_id = request.user.id
+            food.title = form.cleaned_data['title'].capitalize()
             food.save()
             parts = food.ingredients.split('\r\n') #VYTVORENI INGREDIENCE DO VYHLEDAVACE
             for one_part in parts:
@@ -313,7 +317,8 @@ def delete(request,id):
 # datail receptu
 @login_required
 def detail_food(request, id):
-    food = get_object_or_404(ReceptModel, id=id, user_id=request.user.id)
+    food = get_object_or_404(ReceptModel, id=id)
+    
     return render(request, 'appconnext/detail-food.html', {
         'food': food
     })
@@ -344,7 +349,7 @@ def select_food(request):
                 for one_ingredient in all_data:
                     query &= Q(ingredients__icontains=one_ingredient)
                 food = ReceptModel.objects.filter(query, user_id=request.user.id).order_by('title')
-                return render(request, 'appconnext/filter-food.html', {
+                return render(request, 'appconnext/filtered-food.html', {
                     'all_food': food
                 })
             else:

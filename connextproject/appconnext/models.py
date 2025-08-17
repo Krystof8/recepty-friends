@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class ProfilePictureModel(models.Model):
     username = models.CharField(
+        max_length=255,
         blank=True,
         null=False
     )
@@ -17,18 +18,26 @@ class ProfilePictureModel(models.Model):
     
 
 class FriendsRequestModel(models.Model):
-    request_sender = models.CharField()
+    request_sender = models.CharField(
+        max_length=255
+    )
 
-    request_receiver = models.CharField()
+    request_receiver = models.CharField(
+        max_length=255
+    )
 
     def __str__(self):
         return self.request_sender + ' → ' + self.request_receiver
     
 
 class FriendListModel(models.Model):
-    profile = models.CharField()
+    profile = models.CharField(
+        max_length=255
+    )
 
-    friend = models.CharField()
+    friend = models.CharField(
+        max_length=255
+    )
 
     def __str__(self):
         return self.profile + ' → ' + self.friend

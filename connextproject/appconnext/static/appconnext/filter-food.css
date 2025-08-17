@@ -53,6 +53,10 @@ main section img {
     border-radius: 15px;
 }
 
+main .default-food-pic {
+    opacity: 60%;
+}
+
 main section .edits {
     margin-top: 5px;
     font-size: 20px;

@@ -48,9 +48,13 @@ main section .nadpis {
 }
 
 main section img {
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 180px;
     border-radius: 15px;
+}
+
+main .default-food-pic {
+    opacity: 60%;
 }
 
 main section .edits {
@@ -71,4 +75,8 @@ main section .edits a {
 
 main section .edits a:hover {
     border-bottom: 2px solid white;
+}
+
+main h2 {
+    color: rgb(238, 236, 236);
 }
